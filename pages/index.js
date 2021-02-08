@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Footer from '../components/Footer';
 
@@ -17,7 +18,18 @@ export default function Home() {
 }
 
 const BandMember = ({ name, url, slideInFromTop }) => (
-  <div className="flex flex-1 justify-center items-center text-3xl font-bold bg-yellow-200 mr-0.5 text-center hover:bg-yellow-100">
+  <motion.div
+    initial="hidden"
+    animate="visible"
+    variants={{
+      hidden: { y: slideInFromTop ? '-100vh' : '100vh' },
+      visible: { y: 0 }
+    }}
+    whileHover={{
+      scale: 1.2
+    }}
+    className="flex flex-1 justify-center items-center text-3xl font-bold bg-yellow-200 mr-0.5 text-center hover:bg-yellow-100"
+  >
     <Link href={url}>{name}</Link>
-  </div>
+  </motion.div>
 );

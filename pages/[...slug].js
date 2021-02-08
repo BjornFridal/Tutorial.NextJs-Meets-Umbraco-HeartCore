@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { getBandMember } from '../../lib/api';
-import Footer from '../../components/Footer';
+import { getBandMember, getBandMembers } from '../lib/api';
+import Footer from '../components/Footer';
 
-export default function Joe({ name, biography }) {
+export default function BandMember({ member: { fullname, biography } }) {
   return (
     <div className="flex h-screen overflow-hidden bg-yellow-200">
       <motion.div
@@ -24,7 +24,7 @@ export default function Joe({ name, biography }) {
         }}
       >
         <div className="w-2/5 mx-auto	pt-20">
-          <h1 className="text-5xl font-bold mb-5">{name}</h1>
+          <h1 className="text-5xl font-bold mb-5">{fullname}</h1>
           <p className="text-lg">{biography}</p>
           <GoBack />
         </div>
@@ -55,9 +55,26 @@ const GoBack = () => (
   </Link>
 );
 
-export function getStaticProps() {
-  const data = getBandMember();
+export async function getStaticProps({ params }) {
+  const member = await getBandMember(urlArrayToString(params.slug));
   return {
-    props: { ...data }
+    props: { member }
   };
 }
+
+export async function getStaticPaths() {
+  const members = await getBandMembers();
+  const paths = members.map(({ url }) => ({
+    params: {
+      slug: urlStringToArray(url)
+    }
+  }));
+
+  return {
+    paths,
+    fallback: false
+  };
+}
+
+const urlArrayToString = (url) => `/${url.join('/')}`;
+const urlStringToArray = (url) => url.split('/').filter((urlPart) => urlPart);

@@ -38,9 +38,9 @@ const BandMember = ({ name, url, slideInFromTop }) => (
   </motion.div>
 );
 
-export function getStaticProps() {
-  const data = getBandMembers();
+export async function getStaticProps() {
+  const members = await getBandMembers();
   return {
-    props: { ...data }
+    props: { members }
   };
 }

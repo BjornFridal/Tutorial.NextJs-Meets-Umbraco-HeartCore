@@ -1,15 +1,19 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Footer from '../components/Footer';
+import { getBandMembers } from '../lib/api';
 
-export default function Home() {
+export default function Home({ members }) {
   return (
     <div className="relative overflow-hidden bg-yellow-100">
       <div className="flex h-screen -mr-0.5">
-        <BandMember name="Joey" url="/members/joey" slideInFromTop={true} />
-        <BandMember name="Johnny" url="/members/joey" slideInFromTop={false} />
-        <BandMember name="Dee Dee" url="/members/joey" slideInFromTop={true} />
-        <BandMember name="Tommy" url="/members/joey" slideInFromTop={false} />
+        {members.map((member, index) => (
+          <BandMember
+            {...member}
+            slideInFromTop={index % 2 == 1}
+            key={member.name}
+          />
+        ))}
       </div>
 
       <Footer htmlTag="h1" />
@@ -33,3 +37,10 @@ const BandMember = ({ name, url, slideInFromTop }) => (
     <Link href={url}>{name}</Link>
   </motion.div>
 );
+
+export function getStaticProps() {
+  const data = getBandMembers();
+  return {
+    props: { ...data }
+  };
+}

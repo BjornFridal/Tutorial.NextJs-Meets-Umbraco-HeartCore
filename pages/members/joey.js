@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { getBandMember } from '../../lib/api';
 import Footer from '../../components/Footer';
 
-export default function Joe() {
+export default function Joe({ name, biography }) {
   return (
     <div className="flex h-screen overflow-hidden bg-yellow-200">
       <motion.div
@@ -23,20 +24,9 @@ export default function Joe() {
         }}
       >
         <div className="w-2/5 mx-auto	pt-20">
+          <h1 className="text-5xl font-bold mb-5">{name}</h1>
+          <p className="text-lg">{biography}</p>
           <GoBack />
-          <h1 className="text-5xl font-bold my-5">Joye Ramone</h1>
-          <p className="text-lg">
-            In 1974, Jeffrey Hyman co-founded the punk rock band the Ramones
-            with friends John Cummings and Douglas Colvin. Colvin was already
-            using the pseudonym "Dee Dee Ramone" and the others also adopted
-            stage names using "Ramone" as their surname: Cummings became Johnny
-            Ramone and Hyman became Joey Ramone. The name "Ramone" stems from
-            Paul McCartney: he briefly used the stage name "Paul Ramon" during
-            1960/1961, when the Beatles, still an unknown five-piece band called
-            the Silver Beetles, did a tour of Scotland and all took up
-            pseudonyms; and again on the 1969 Steve Miller album Brave New
-            World, where he played the drums on one song using that name.
-          </p>
         </div>
       </motion.div>
 
@@ -47,7 +37,7 @@ export default function Joe() {
 
 const GoBack = () => (
   <Link href="/">
-    <motion.span whileHover={{ x: 10 }} className="flex cursor-pointer">
+    <motion.span whileHover={{ x: 10 }} className="flex cursor-pointer mt-10">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -64,3 +54,10 @@ const GoBack = () => (
     </motion.span>
   </Link>
 );
+
+export function getStaticProps() {
+  const data = getBandMember();
+  return {
+    props: { ...data }
+  };
+}

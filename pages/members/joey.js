@@ -1,5 +1,7 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 
 export default function Joe() {
   return (
@@ -21,7 +23,7 @@ export default function Joe() {
           }
         }}
       >
-        <div className="px-10">
+        <div className="w-2/5 mx-auto	pt-20">
           <GoBack />
           <h1 className="text-5xl font-bold my-5">Joye Ramone</h1>
           <p className="text-lg">
@@ -38,6 +40,8 @@ export default function Joe() {
           </p>
         </div>
       </motion.div>
+
+      <Footer htmlTag="div" />
     </div>
   );
 }

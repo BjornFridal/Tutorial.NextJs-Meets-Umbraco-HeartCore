@@ -1,28 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 
 export default function Joe() {
   return (
     <div className="flex h-screen overflow-hidden bg-yellow-200">
-      <motion.div
-        initial="initial"
-        animate="enter"
-        exit="exit"
-        variants={{
-          initial: { scale: 0.1, y: 30, opacity: 0 },
-          enter: {
-            rotate: [270, 0],
-            scale: 1,
-            opacity: 1,
-            transition: {
-              duration: 0.5,
-              ease: [0.48, 0.15, 0.25, 0.96]
-            }
-          }
-        }}
-      >
+      <div>
         <div className="w-2/5 mx-auto	pt-20">
           <GoBack />
           <h1 className="text-5xl font-bold my-5">Joye Ramone</h1>
@@ -39,7 +22,7 @@ export default function Joe() {
             World, where he played the drums on one song using that name.
           </p>
         </div>
-      </motion.div>
+      </div>
 
       <Footer htmlTag="div" />
     </div>
@@ -48,7 +31,7 @@ export default function Joe() {
 
 const GoBack = () => (
   <Link href="/">
-    <motion.span whileHover={{ x: 10 }} className="flex cursor-pointer">
+    <span className="flex cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -62,6 +45,6 @@ const GoBack = () => (
       <span className="text-lg font-bold uppercase tracking-wider text-black">
         Back
       </span>
-    </motion.span>
+    </span>
   </Link>
 );
